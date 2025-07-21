@@ -6,7 +6,7 @@ pipeline {
     environment {
         VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.ARTECH${BUILDS_ALL_TIME}', projectStartDate : '2019-8-27']);
         imageName = "pipe";
-        dockerRegistry = "tejadev2023"
+        dockerRegistry = "venkatasaibajanthri"
     }
     stages {
 
@@ -15,7 +15,7 @@ pipeline {
                 script{
                     currentBuild.displayName = VER
                 }
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'tejadevops', url: 'https://github.com/tejadevops2000/jenkins-pipeline.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'my_git', url: 'https://github.com/Venkatasai-2002/jenkins_ci-cd_pipelines.git']]])
             }    
         }//end clone the git repository
 
@@ -24,7 +24,7 @@ pipeline {
                     sh """ 
                         pwd
                         ls
-                        sudo docker login -u tejadev2023 -p Devops@123
+                        sudo docker login -u venkatasaibajanthri -p Devops@123456
                         sudo docker build -t $dockerRegistry/$imageName:$VER  --pull .
                         sudo docker push $dockerRegistry/$imageName:$VER
                     """         
